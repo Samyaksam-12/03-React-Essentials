@@ -1,28 +1,58 @@
-const reactDescriptions = ["Fundamental ", "Crucial ", "Core"];
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
+import { CORE_CONCEPTS } from "./data";
+import Sam from "./components/Sam/Sam.jsx"
+import CoreConcept from "./components/CoreConcepts.jsx";
+import TabButton from "./components/TabButton.jsx";
 
-function Sam() {
-  const description = reactDescriptions[genRandomInt(2)];
-  return (
-    <header>
-      <img src="src/assets/react-core-concepts.png" alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {reactDescriptions[genRandomInt(2)]} React concepts you will need for
-        almost any app you are going to build!
-      </p>
-    </header>
-  );
-}
 
 function App() {
+  let tabContent = "Please click a button"
+
+  function handleSelect(selectedButton) {
+    // console.log(selectedButton);
+    tabContent = selectedButton;
+    console.log(tabContent)
+  }
+
+
   return (
     <div>
+
       <Sam />
       <main>
-        <h2>Time to get started!</h2>
+        <section id="core-concepts">
+          <h2>Core Concepts</h2>
+          <ul>
+            <CoreConcept
+              title = {CORE_CONCEPTS[0].title}
+              description = {CORE_CONCEPTS[0].description}
+              image = {CORE_CONCEPTS[0].image}
+            />
+            <CoreConcept
+              {...CORE_CONCEPTS[1]}
+            />
+            <CoreConcept
+              title = {CORE_CONCEPTS[2].title}
+              description = {CORE_CONCEPTS[2].description}
+              image = {CORE_CONCEPTS[2].image}
+            />
+            <CoreConcept
+              title = {CORE_CONCEPTS[3].title}
+              description = {CORE_CONCEPTS[3].description}
+              image = {CORE_CONCEPTS[3].image}
+            />
+
+          </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton onSelect={() => handleSelect('component')} >Components</TabButton> 
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton> 
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton> 
+            <TabButton onSelect={() => handleSelect('state')}>State</TabButton> 
+          </menu>
+          {tabContent}
+        </section>
       </main>
     </div>
   );
